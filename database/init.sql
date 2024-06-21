@@ -1,0 +1,21 @@
+CREATE TABLE Users (
+id INT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+lastname VARCHAR(255) NOT NULL,
+email VARCHAR(255) UNIQUE NOT NULL,
+password_hash VARCHAR(255) NOT NULL,
+profile_image_url VARCHAR(255)
+);
+
+CREATE TABLE Posts (
+id INT PRIMARY KEY,
+user_id INT,
+content_type ENUM('blog', 'microblog') NOT NULL,
+text_content TEXT,
+title VARCHAR(255),
+video_url VARCHAR(255),
+image_url VARCHAR(255),
+created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (user_id) REFERENCES Users(id)
+);

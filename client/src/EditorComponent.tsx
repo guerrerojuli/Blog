@@ -7,7 +7,7 @@ const EditorComponent = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/', {
+      const response = await fetch('http://localhost:3000/save-content', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

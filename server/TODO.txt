@@ -1,21 +1,22 @@
 Database Schema:
 
 Users:
-id (Primary Key)
-username
-email (Unique)
-password_hash (Store securely)
-profile_image_url
-created_at
-updated_at
+  id (Primary Key)
+  name
+  lastname
+  email (Unique)
+  password_hash (Store securely)
+  profile_image_url
+  created_at
+  updated_at
 
 Posts:
-id (Primary Key)
-user_id (Foreign Key referencing Users.id)
-content_type (Enum: 'blog', 'microblog')
-title (Nullable, for blog posts)
-text_content
-video_url (Nullable)
-image_url (Nullable)
-created_at
-updated_at
+  id (Primary Key)
+  user_id (Foreign Key referencing Users.id)
+  content_type (Enum: 'blog', 'microblog')
+  text_content
+  title (Nullable, for blog posts)
+  video_url (Nullable, for microblog)
+  image_url (Nullable, for microblog)
+  created_at
+  updated_at
