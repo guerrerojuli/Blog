@@ -1,9 +1,3 @@
-// getPosts: GET get all the post
-// getPostsByUser: GET get all the post of an user
-// postPost: POST a new post (auth required)
-// updatePost: PUT update a new post (auth required)
-// deletePost: DELETE delete a post (auth required)
-
 import {Router, Request, Response} from "express"
 const router = Router();
 
@@ -15,15 +9,18 @@ router.get("/:userId/posts", (req: Request, res: Response) => {
 
 });
 
-// auth middleware required
+/* auth middleware required */
+// create an empty post
 router.post("/:postId", (req: Request, res: Response) => {
   
 });
 
+// update a post
 router.put("/:postId", (req: Request, res: Response) => {
 
 });
 
+// delete a post
 router.delete("/:postId", (req: Request, res: Response) => {
 
 });
