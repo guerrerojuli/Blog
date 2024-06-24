@@ -12,8 +12,14 @@ postsRouter.get("/posts",);
 postsRouter.get("/:userId/posts",);
 
 // auth middleware required
+// create an empty post
 postsRouter.post("/:postId",);
 
+// update an existing post
 postsRouter.put("/:postId",);
 
+// delete a post
 postsRouter.delete("/:postId",);
+
+// upload an image
+postsRouter.post("/uploadImage",);

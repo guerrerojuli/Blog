@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const EditorComponent = () => {
   const [editorHtml, setEditorHtml] = useState('');
+  const reactQuillRef = useRef(null);
 
   const handleSave = async () => {
     try {
@@ -12,7 +13,7 @@ const EditorComponent = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ editorHtml})
+        body: JSON.stringify({ editorHtml })
       });
 
       if (response.ok) {
@@ -35,18 +36,21 @@ const EditorComponent = () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      // Replace this with your upload logic
-      const response = await fetch('https://example.com/upload', {
+      // Replace 'http://localhost:5000/upload' with your server endpoint
+      const response = await fetch('http://localhost:3000/upload', {
         method: 'POST',
         body: formData
       });
 
       const data = await response.json();
-      const imageUrl = data.imageUrl;
 
+      setEditorHtml(editorHtml + `<img src=${data.imageUrl}>`);
+      /*
       // Insert the image into the editor at the cursor position
-      const range = this.quill.getSelection();
-      this.quill.insertEmbed(range.index, 'image', imageUrl);
+      const quill = reactQuillRef.current.getEditor();
+      const range = quill.getSelection();
+      quill.insertEmbed(range.index, 'image', data.imageUrl);
+      */
     };
     input.click();
   };
@@ -54,11 +58,8 @@ const EditorComponent = () => {
   const modules = {
     toolbar: {
       container: [
-        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-        [{ size: [] }],
         ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' },
-        { 'indent': '-1' }, { 'indent': '+1' }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['link', 'image', 'video'],
         ['clean']
       ],
@@ -69,9 +70,8 @@ const EditorComponent = () => {
   };
 
   const formats = [
-    'header', 'font', 'size',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
+    'list', 'bullet',
     'link', 'image', 'video'
   ];
 
@@ -83,6 +83,7 @@ const EditorComponent = () => {
   return (
     <div>
       <ReactQuill
+        ref={reactQuillRef}
         theme="snow"
         value={editorHtml}
         onChange={handleChange}
